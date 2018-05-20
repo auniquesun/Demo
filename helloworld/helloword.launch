@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.genuitec.eclipse.ast.deploy.core.runonserver">
+<stringAttribute key="ProfilerCPUSettings_filter_type" value="2"/>
+<stringAttribute key="ProfilerCPUSettings_filter_value" value="com.ruc.ly.*"/>
+<stringAttribute key="ProfilerCPUSettings_profile_runnables" value="true"/>
+<stringAttribute key="ProfilerCPUSettings_root_classes" value="com.ruc.ly.**&#10;"/>
+<stringAttribute key="ProfilerMemorySettings_mode" value="4"/>
+<stringAttribute key="ProfilerMemorySettings_stacktraces" value="0"/>
+<stringAttribute key="ProfilerMemorySettings_track_every" value="10"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/Student Information Management System"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="profiler.settings.cpu.profiling.type" value="0"/>
+<stringAttribute key="profiler.settings.instr.scheme" value="1"/>
+<stringAttribute key="profiler.settings.instrument.empty.methods" value="false"/>
+<stringAttribute key="profiler.settings.instrument.method.invoke" value="true"/>
+<stringAttribute key="profiler.settings.istrument.getter.setter.methods" value="false"/>
+<stringAttribute key="profiler.settings.n.profiled.threads.limit" value="32"/>
+<stringAttribute key="profiler.settings.obj.alloc.stack.sampling.depth" value="0"/>
+<stringAttribute key="profiler.settings.sampling.interval" value="10"/>
+<booleanAttribute key="runonserver.exploded" value="true"/>
+<stringAttribute key="runonserver.project" value="helloworld"/>
+<stringAttribute key="runonserver.server" value="tomcat8Server"/>
+<booleanAttribute key="runoserver.restart" value="true"/>
+</launchConfiguration>
