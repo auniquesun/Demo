@@ -1,0 +1,2 @@
+# 从这个链接下到数据集，放到hdfs一个目录下，在server.py的 __main__ 里，把HDFS的这个目录赋值给 dataset_path
+http://files.grouplens.org/datasets/movielens/ml-latest.zip
