@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>表情包搜索</title>
+  <!-- import  CSS -->
+  <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+  <style>
+    body{
+      font-family: '微软雅黑';
+    }
+    .query-input {
+      width: 500px;
+      border-radius: 5px;
+      height:40px;
+      font-size: 16px;
+      padding:0 10px;
+      border: 1px solid #dddddd;
+    }
+    .query-input:focus{
+      border-color: #4285f4;
+    }
+    #img-flow{
+      column-width: 190px;
+    }
+    .emo-box{
+      padding: 10px;
+      float:left;
+    }
+    .emo-pic{
+      border: 1px solid #dddddd;
+      background-color: white;
+    }
+    .emo-pic:hover{
+      border: 1px solid #4285f4;
+      cursor:pointer;
+    }
+    .emo-pic img{
+      width:180px;
+      padding:10px;
+    }
+    *, *:before, *:after {  
+        box-sizing: unset;  
+    }  
+  </style>
+</head>
+<body id='app'>
+
+<!-- 顶部搜索 -->
+  <div style="width:100%;margin-top:40px;">
+    <img th:src="@{images/logo.png}" style="height:50px;"/>
+    <div style="display:inline-block;" class="align-middle">
+      <!-- 【后端】修改action，修改input中的name -->
+      <form th:action="@{(search)}" method="get" style="float:left;">
+        <input type="text" name="wd" value="" class="query-input" placeholder="输入关键词" required="required" style="margin-top:10px;"/>
+      </form>
+    </div>
+  </div>
+
+<!-- 相关搜索 -->
+  <div style="padding:20px 10px 10px 20px;">
+    <p style="font-size:15px;">相关搜索：
+        <!-- 【后端】开始输出相关搜索 -->
+        <a href="http://www.baidu.com/s?wd=关键词">表情包1</a>&nbsp;&nbsp;&nbsp;
+        <a href="http://www.baidu.com/s?wd=关键词">表情包1</a>&nbsp;&nbsp;&nbsp;
+        <a href="http://www.baidu.com/s?wd=关键词">表情包1</a>&nbsp;&nbsp;&nbsp;
+        <a href="http://www.baidu.com/s?wd=关键词">表情包1</a>&nbsp;&nbsp;&nbsp;
+        <a href="http://www.baidu.com/s?wd=关键词">表情包1</a>&nbsp;&nbsp;&nbsp;
+        <!-- 【后端】完成输出相关搜索 -->
+    </p>
+  </div>
+
+<!-- 弹出框 -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">表情包信息</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="align-middle" style="float:left;margin:10px;max-width:50%;">
+          <img class="modal-info-img" src="" style="max-width:100%;"/>
+        </div>
+        <div class="align-middle" style="float:left;margin:10px;">
+          <h3 class="modal-info-title"></h3>
+          <p class="modal-info-label"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"> OK </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 瀑布流 -->
+  <div style="width:100%; min-height:100%;background-color:#f8f8f8;" id="img-flow">
+    <!-- 【后端】此处开始输出图片 -->
+    <div th:each="name : ${result}">
+      <p th:text="${name}"></p>
+    </div>
+
+  <!-- 【后端】结束输出图片 -->
+  </div>
+
+
+</body>
+  <!-- import JS -->
+  <script th:src="@{js/jquery-3.3.1.slim.min.js}"></script>
+  <script th:src="@{js/popper.min.js}"></script>
+  <script th:src="@{js/bootstrap.min.js}"></script>
+
+  <script>
+    $('#infoModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) ;
+      var label = button.data('label');
+      var title = button.data('title');
+      var src= button.children('img').attr('src');
+      var modal = $(this);
+      modal.find('.modal-info-title').text(title);
+      modal.find('.modal-info-label').text(label);
+      modal.find('.modal-info-img').attr('src', src);
+    });
+  </script>
+</html>

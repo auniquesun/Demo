@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>表情包搜索</title>
+  <!-- import  CSS -->
+  <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{css/web-heart-style.css}"/>
+  <style>
+    body{
+      font-family: '微软雅黑';
+    }
+    .query-input {
+      width: 500px;
+      border-radius: 5px;
+      height:40px;
+      font-size: 16px;
+      padding:0 10px;
+      border: 1px solid #dddddd;
+    }
+    .query-input:focus{
+      border-color: #4285f4;
+    }
+    .emo-box{
+      padding: 20px;
+      float:left;
+    }
+    .emo-pic{
+      border: 1px solid #dddddd;
+      background-color: white;
+      height:170px;
+      position:relative;
+    }
+    .emo-pic:hover{
+      border: 1px solid #4285f4;
+      cursor:pointer;
+    }
+    .emo-pic img{
+      height:150px;
+      padding:10px;
+    }
+    *, *:before, *:after {  
+        box-sizing: unset;  
+    }
+    .like-part{
+      position: absolute;
+      right: 10px;
+      bottom:-10px;
+    }
+  </style>
+</head>
+<body id='app'>
+
+<!-- 顶部搜索 -->
+  <div style="width:100%;margin-top:40px;">
+    <a href="/"><img th:src="@{images/logo.png}" style="height:50px;"/></a>
+    <div style="display:inline-block;" class="align-middle">
+      <h2>近期热门表情</h2>
+    </div>
+  </div>
+
+<!-- 时段 -->
+  <div style="padding:20px 10px 10px 20px;">
+    <p style="font-size:15px;">
+      最近一周，这些表情包最受欢迎：
+    </p>
+  </div>
+
+<!-- 弹出框 -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">表情包信息</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="align-middle" style="float:left;margin:10px;max-width:50%;">
+          <img class="modal-info-img" src="" style="max-width:100%;"/>
+        </div>
+        <div class="align-middle" style="float:left;margin:10px;">
+          <h3 class="modal-info-title"></h3>
+          <p class="modal-info-label"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"> 关闭 </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 瀑布流 -->
+  <div style="width:100%; min-height:100%;background-color:#f8f8f8;" id="img-flow">
+    <!-- 【后端】此处开始输出图片 -->
+    <div th:each="pic:${result}" class="emo-box">
+      <div class="emo-pic">
+        <div data-toggle="modal" data-target="#infoModal" th:attr="data-label=${pic.tag}, data-title=${pic.name}">
+          <img th:title="${pic.name}" th:src="'/emoticons/' + ${pic.file_name}"/>
+        </div>
+        <div class="like-part">
+          <div class="likeCount" th:id="'likeCount'+${pic.imgid}" th:text="${pic.likes}"></div>
+          <div class="heart" th:id="'like'+${pic.imgid}" rel="like"></div>
+        </div>
+      </div>
+
+    </div>
+  <!-- 【后端】结束输出图片 -->
+  </div>
+
+
+</body>
+  <!-- import JS -->
+  <script th:src="@{js/jquery-3.3.1.slim.min.js}"></script>
+  <script th:src="@{js/popper.min.js}"></script>
+  <script th:src="@{js/bootstrap.min.js}"></script>
+  <script th:src="@{js/axios.min.js}"></script>
+
+  <script>
+
+    var like_record = {};
+
+    // modal
+    $('#infoModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) ;
+      var label = button.data('label');
+      var title = button.data('title');
+      var src= button.children('img').attr('src');
+      var modal = $(this);
+      modal.find('.modal-info-title').text(title);
+      modal.find('.modal-info-label').text(label);
+      modal.find('.modal-info-img').attr('src', src);
+    });
+
+    //like button
+    $(document).ready(function(){
+        $('body').on("click",'.heart',function(){
+            var A=$(this).attr("id");
+            var B=A.split("like");
+            var messageID=B[1];
+            var C=parseInt($("#likeCount"+messageID).html());
+            $(this).css("background-position","")
+            var D=$(this).attr("rel");
+
+            if(D === 'like') {
+                $("#likeCount"+messageID).html(C+1);
+                $(this).addClass("heartAnimation").attr("rel","unlike");
+                axios.get('/add_like?imgid='+messageID)
+                    .then(function(response){
+                        like_record[messageID] = response.data;
+                    });
+            }
+            else{
+                $("#likeCount"+messageID).html(C-1);
+                $(this).removeClass("heartAnimation").attr("rel","like");
+                $(this).css("background-position","left");
+                axios.get('remove_like?likeId='+like_record[messageID]);
+            }
+        });
+
+    });
+
+  </script>
+</html>

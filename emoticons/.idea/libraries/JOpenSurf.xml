@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JOpenSurf">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/JOpenSurf.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
