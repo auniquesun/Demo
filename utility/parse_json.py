@@ -1,6 +1,9 @@
 import json
 
-def parse_json(string):
+'''
+My Solution
+'''
+def parse_json_me(string):
 
 	start = string.find('{')
 	end = string.find('}')
@@ -31,5 +34,21 @@ def parse_json(string):
 	print(string)
 	return json.loads(string)
 
-# parse_json('{aopr:56,tip:35,la:["jif"]}')
-parse_json('{  aopr:56,tip:35,la:["jif"]}')
+'''
+General Solution
+'''
+def parse_json_general(string):
+    '''
+    把一个类json字符串转换成json字符串
+    '''
+    if len(string) == 0:
+        raise Exception('argument value {} error'.format(string))
+
+    pattern = r"([a-zA-Z_][a-zA-Z_0-9]*)\s*\:"
+    repl = lambda match: '"{}":'.format(match.group(1))
+    json_str = string[string.find('{'):string.find('}')+1]
+    json_str = re.sub(pattern, repl, json_str)
+    
+    return json.loads(json_str)
+
+print(parse_json_general('{  aopr:56,tip:35,la:["jif"]}'))
