@@ -1,2 +1,2 @@
 # Demo
-some system demos finished when study, work or do homework 
+some system demoes and paper experiments done when study, work or research 
