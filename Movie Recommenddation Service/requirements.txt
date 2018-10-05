@@ -1,4 +1,6 @@
 # 版本号不一定要和这个完全一样，我实际安装的这些package的版本号就和这些不一样，但仍然可以正常运行
+# github 官网通知我此文件中依赖的Flask package存在 security vulnerables，并建议版本号>0.12.3，遂改成1.0版本
+# security vulnerables 可查看本文件夹中截图 security notification.png
 CherryPy==10.2.1
-Flask==0.12.1
+Flask==1.0
 PasteScript==2.0.2
