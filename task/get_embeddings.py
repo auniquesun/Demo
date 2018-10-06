@@ -5,7 +5,7 @@ import io
 import jieba
 import pandas as pd
 import numpy as np
-from gensim.models import word2vec
+from gensim.models import word2vec # word2vec,Word2Vec这两个包都用到了
 from gensim.models import Word2Vec
 
 
