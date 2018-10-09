@@ -40,7 +40,7 @@ def train():
     num_features = 50    # Word vector dimensionality
     min_word_count = 10  # Minimum word count
     num_workers = 32       # Number of threads to run in parallel
-    # 共包含10000篇文章
+    # 共包含100000篇文章
     sentences = word2vec.Text8Corpus("paper_100K.txt")
 
 
