@@ -1,2 +1,4 @@
 __pycache__
 paper_100K.txt
+large_chosen_paper.txt
+task/data/*
